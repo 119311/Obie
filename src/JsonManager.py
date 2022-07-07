@@ -1,7 +1,5 @@
-from typing import Dict
 import unittest  # testのためのライブラリ
 import json
-import pprint
 
 
 JSON_PATH = "data/target.json"
