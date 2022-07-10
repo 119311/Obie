@@ -1,6 +1,7 @@
 ﻿{
     "DateBaseName": "DBTarget",
     "active": true,
+    "num": 4,
     "targetList": [
         {
             "id": 0,
