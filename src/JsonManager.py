@@ -10,9 +10,14 @@ def load(jsonFile=JSON_PATH):
     return json.load(open(jsonFile, "r", encoding="utf-8_sig"))
 
 
+def save(data):
+    with open(JSON_PATH, "w", encoding="utf-8_sig") as f:
+        json.dump(data, f, indent=4)
+
+
 def getByDictionary(id, Dictionary):
     data = load().get("targetList", None)[id]
-    for i in test["attribute"]:
+    for i in Dictionary["attribute"]:
         Dictionary["attribute"][i] = data.get("attribute", None)[i]
 
 
