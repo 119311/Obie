@@ -1,7 +1,4 @@
-import unittest  # testのためのライブラリ
 import json
-import pprint
-import collections
 
 
 JSON_PATH = "data/target.json"
@@ -10,23 +7,14 @@ JSON_PATH_W = "data/target_w.json"
 
 def load(jsonFile=JSON_PATH):
     """Load json from jsonFile to dict. (default is JSON_PATH)"""
-    return json.load(
-        open(jsonFile, "r", encoding="utf-8_sig"),
+    return json.load(open(jsonFile, encoding="utf-8_sig"))
+
+
+def save(data, jsonFile=JSON_PATH_W):
+    """Damp to json from data(dict). (default is JSON_PATH_W)"""
+    json.dump(
+        data, open(jsonFile, "w", encoding="utf-8_sig"), ensure_ascii=False, indent=4
     )
-
-
-def save(data, jsonFile=JSON_PATH_W, mode="a"):
-    """
-    Damp to json from data(dict).
-    mode="a" is append mode.
-    mode="o" is overwrite mode.
-    """
-    dataOld = load()
-    dataOld["targetList"].append(data)
-    # pprint.pprint(dataOld)
-    # print(json.dumps(dataOld, ensure_ascii=False, indent=2))
-    with open(JSON_PATH_W, mode="wt", encoding="utf-8") as file:
-        json.dump(dataOld, file, ensure_ascii=False, indent=4)
 
 
 def getByDictionary(id, Dictionary):
@@ -35,32 +23,60 @@ def getByDictionary(id, Dictionary):
         Dictionary["attribute"][i] = data.get("attribute", None)[i]
 
 
-# The following is for testing
+def SaveDictionary(dict, jsonFile=JSON_PATH_W):
+    data = load()
+    id = -1
+    num = 1
+    for i in data.get("targetList", None):
+        num += 1
+        if dict.get("id") == i.get("id"):
+            id = dict.get("id")
+    if id != -1:
+        del data.get("targetList", None)[id]
+    data.get("targetList", None).append(dict)
+    data["num"] = num
+    save(data, jsonFile)
 
 
-test = {
-    "id": 0,
-    "attribute": {
-        "kind": None,
-        "amount": None,
-        "Period": None,
-        "repeat": None,
-        "active": None,
-    },
-}
-test2 = {
-    "id": 4,
-    "attribute": {
-        "kind": "食事",
-        "amount": 12121,
-        "Period": None,
-        "repeat": None,
-        "active": None,
-    },
-}
-
-
-print(test)
-getByDictionary(test.get("id"), test)
-print(test)
-save(test2)
+if __name__ == "__main__":
+    test = {
+        "id": 0,
+        "attribute": {
+            "kind": None,
+            "amount": None,
+            "Period": None,
+            "repeat": None,
+            "active": None,
+        },
+    }
+    test2 = {
+        "id": 3,
+        "attribute": {
+            "kind": "食事",
+            "amount": 12121,
+            "Period": None,
+            "repeat": None,
+            "active": None,
+        },
+    }
+    test3 = {
+        "id": 4,
+        "attribute": {
+            "kind": "食事",
+            "amount": 121211,
+            "Period": None,
+            "repeat": None,
+            "active": None,
+        },
+    }
+    print("old is " + str(test))
+    getByDictionary(test.get("id"), test)
+    print("new is " + str(test))
+    print()
+    print("old is \n" + str(load()))
+    SaveDictionary(test2)
+    print("new is \n" + str(load()))
+    print()
+    print("old is \n" + str(load()))
+    SaveDictionary(test3)
+    print("new is \n" + str(load()))
