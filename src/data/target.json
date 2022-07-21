@@ -1,5 +1,6 @@
 ﻿{
     "DateBaseName": "DBTarget",
+    "colorPreset": 3,
     "active": true,
     "num": 4,
     "targetList": [

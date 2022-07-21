@@ -5,11 +5,11 @@ import tkinter
 
 
 root = tkinter.Tk()
-root.title(u"Software Title")
+root.title("Software Title")
 root.geometry("400x300")
 
-#ラベル
-Static1 = tkinter.Label(text=u'test')
+# ラベル
+Static1 = tkinter.Label(text="test")
 Static1.pack()
 
 root.mainloop()

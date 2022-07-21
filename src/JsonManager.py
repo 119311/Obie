@@ -2,7 +2,7 @@ import json
 
 
 JSON_PATH = "data/target.json"
-JSON_PATH_W = "data/target_w.json"
+JSON_PATH_W = "data/target.json"
 
 
 def load(jsonFile=JSON_PATH):

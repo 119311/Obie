@@ -9,6 +9,14 @@ class WinManager:
         self.regWin = 0
         self.hisWin = 0
         self.logo = tk.PhotoImage()
+        self.modify = []
+
+    def RegModify(self, window):
+        self.modify.append(window)
+
+    def DeleteModify(self, window):
+        self.modify.remove(window)
+        window.destroy()
 
     def RegLogo(self, img):
         self.logo = img
@@ -45,5 +53,16 @@ class WinManager:
     def AllClose(self):
         if self.hisUp:
             self.hisWin.destroy()
+            self.hisUp = False
         if self.regUp:
             self.regWin.destroy()
+            self.regUp = False
+        for item in self.modify:
+            item.destroy()
+        self.modify.clear()
+
+    def ModClose(self):
+        for item in self.modify:
+            item.destroy()
+
+        self.modify.clear()
